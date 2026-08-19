@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "C:\\Users\\Administrator\\Documents\\MagicalPS\\obj\\x64\\Release\\Commands.obj",
+            "outputs": [
+                "C:\\Users\\Administrator\\Documents\\MagicalPS\\obj\\x64\\Release\\Commands.h.obj.dt.module.json",
+                "C:\\Users\\Administrator\\Documents\\MagicalPS\\obj\\x64\\Release\\Commands.h.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

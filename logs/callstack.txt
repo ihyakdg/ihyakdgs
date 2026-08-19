@@ -1,0 +1,10 @@
+Time: 2026-08-09 01:24:10
+Origin: UnhandledExceptionFilter
+ExceptionCode: 0xC0000005
+ExceptionAddress: 0x00007FF7FF5405E8
+Hint: Access violation (NULL/dangling pointer, OOB, use-after-free).
+---- CALLSTACK ----
+#00 NopySource.exe!main +0x3b8 (C:\Users\Administrator\Downloads\MagicalPS\MagicalPS\NopySource.cpp:2617)
+#01 NopySource.exe!__scrt_common_main_seh +0x10c (D:\a\_work\1\s\src\vctools\crt\vcstartup\src\startup\exe_common.inl:288)
+#02 KERNEL32.DLL!BaseThreadInitThunk +0x10 (0x7ff9194f4cb0)
+#03 ntdll.dll!RtlUserThreadStart +0x2b (0x7ff91989edeb)

@@ -1,0 +1,71 @@
+#pragma once
+#include <string>
+#include <vector>
+#include <Math.hpp>
+#include <Rect.hpp>
+
+class TextParse {
+public:
+    TextParse();
+    explicit TextParse(const std::string& string);
+    explicit TextParse(const std::vector<std::pair<std::string, std::string>>& data);
+    ~TextParse();
+
+    static std::vector<std::string> StringTokenize(const std::string& string, const std::string& delimiter = "|");
+
+public:
+    void Parse(const std::string& string);
+
+    std::string Get(const std::string& key, int index = 1, const std::string& token = "|", int key_index = 0);
+    template <typename T, typename std::enable_if_t<std::is_integral_v<T>, bool> = true>
+    T Get(const std::string& key, int index = 1, const std::string& token = "|") {
+        try {
+            std::string val = this->Get(key, index, token);
+            if (val.empty()) return static_cast<T>(0);
+            return static_cast<T>(std::stoll(val));
+        } catch (...) {
+            return static_cast<T>(0);
+        }
+    }
+    template <typename T, typename std::enable_if_t<std::is_floating_point_v<T>, bool> = true>
+    T Get(const std::string& key, int index = 1, const std::string& token = "|");
+
+    void Add(const std::string& key, const std::string& value, const std::string& token = "|") {
+        m_data.push_back(key + token + value);
+    }
+    template <typename T, typename std::enable_if_t<std::is_integral_v<T> || std::is_floating_point_v<T>, bool> = true>
+    void Add(const std::string& key, const T& value, const std::string& token = "|") {
+        this->Add(key, std::to_string(value), token);
+    }
+    void Add(const std::string& key, const CL_Vec2<int>& value, const std::string& token = "|") {
+        std::string data {
+            std::to_string(value.X) + "|" + std::to_string(value.Y)
+        };
+
+        this->Add(key, data, token);
+    }
+    void Add(const std::string& key, const _CL_Recti& value, const std::string& token = "|") {
+        std::string data{
+            std::to_string(value.x) + "|" + std::to_string(value.y) + "|" +
+            std::to_string(value.width) + "|" + std::to_string(value.height)
+        };
+
+        this->Add(key, data, token);
+    }
+
+    void Set(const std::string& key, const std::string& value, const std::string& token = "|");
+    template <typename T, typename std::enable_if_t<std::is_integral_v<T> || std::is_floating_point_v<T>, bool> = true>
+    void Set(const std::string& key, const T& value, const std::string& token = "|");
+
+    bool Contain(const std::string& key) {
+        return this->Get(key) != "" ? true : false;
+    }
+public: 
+    bool IsEmpty() const;
+
+    size_t GetSize() const;
+    std::string GetAsString() const;
+
+private:
+    std::vector<std::string> m_data;
+};
